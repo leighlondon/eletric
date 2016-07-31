@@ -13,7 +13,7 @@ declare -A users
 # for input using ${input:-defaultvalue} syntax. It will attempt to read from
 # ${1} first (the first argument to the script) before attempting to read from
 # /dev/stdin instead.
-while IFS=':' read -r USER PASSWORD
+while IFS=':' read USER PASSWORD
 do
     # Add the fields to the associative array.
     users+=(["${USER}"]="${PASSWORD}")
