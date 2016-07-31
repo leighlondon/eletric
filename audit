@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Audit script.
 # This script requires Bash 4 due to the associative arrays.
