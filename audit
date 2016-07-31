@@ -17,11 +17,11 @@ while IFS=':' read -r USER PASSWORD
 do
     # Add the fields to the associative array.
     users+=(["${USER}"]="${PASSWORD}")
-done < ${1:-/dev/stdin}
+done < "${1:-/dev/stdin}"
 
 # Iterate the dictionary and display it.
 for i in "${!users[@]}"
 do
     # Echo and enable tabs (-e)
-    echo -e "user:" $i "\tpassword:" ${users[$i]}
+    echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
 done
