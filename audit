@@ -6,7 +6,7 @@
 # Create a dictionary or associative array to store user details.
 declare -A users
 
-# Read from the stdin and split based on the IFS (internal field separator)
+# Read from stdin and split based on the IFS (internal field separator)
 # and take the fields as user and password in order.
 while IFS=':' read USER PASSWORD
 do
