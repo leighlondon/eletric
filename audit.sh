@@ -4,9 +4,12 @@
 # Audit script.
 # This script requires Bash 4 due to the associative arrays.
 
+# Declare variables for the programs to be used.
+SHA256SUM="sha256sum"
+
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
-    echo -n "$1" | sha256sum - | awk '{ print $1 }'
+    echo -n "$1" | $SHA256SUM - | awk '{ print $1 }'
 }
 
 # Create a dictionary or associative array to store user details.
