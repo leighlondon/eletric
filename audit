@@ -8,7 +8,7 @@ declare -A users
 
 # Read from stdin and split based on the IFS (internal field separator)
 # and take the fields as user and password in order.
-while IFS=':' read USER PASSWORD
+while IFS=':' read -r USER PASSWORD
 do
     # Add the fields to the associative array.
     users+=(["${USER}"]="${PASSWORD}")
