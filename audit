@@ -25,3 +25,11 @@ done
 function sha_hash {
     echo -n "$1" | sha256sum - | awk '{ print $1 }'
 }
+
+function hash_check {
+    sha_hash "$1"
+}
+
+# Export the function to make it callable by timeout.
+export -f hash_check sha_hash
+timeout 3s bash -c "hash_check a"
