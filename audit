@@ -22,6 +22,6 @@ do
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
 done
 
-function sha_hash {
+sha_hash() {
     echo -n "$1" | sha256sum - | awk '{ print $1 }'
 }
