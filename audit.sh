@@ -6,6 +6,7 @@
 
 # Declare variables for the programs to be used.
 SHA256SUM="sha256sum"
+TIMEOUT="timeout"
 
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
