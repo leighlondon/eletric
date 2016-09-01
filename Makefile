@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: test lint
 
 # Run the script over the test data.
 test:
