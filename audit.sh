@@ -4,6 +4,11 @@
 # Audit script.
 # This script requires Bash 4 due to the associative arrays.
 
+# sha_hash calculates the sha256 hash of the first argument.
+sha_hash() {
+    echo -n "$1" | sha256sum - | awk '{ print $1 }'
+}
+
 # Create a dictionary or associative array to store user details.
 declare -A users
 
@@ -21,7 +26,3 @@ do
     # Echo and enable tabs (-e)
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
 done
-
-sha_hash() {
-    echo -n "$1" | sha256sum - | awk '{ print $1 }'
-}
