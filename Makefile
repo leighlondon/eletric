@@ -5,4 +5,4 @@ test:
 	@cat test/password | ./audit.sh
 
 lint:
-	@shellcheck -s bash audit
+	@shellcheck -s bash audit.sh
