@@ -4,12 +4,15 @@
 # Audit script.
 # This script requires Bash 4 due to the associative arrays.
 
-# Dictionary
-DICTIONARY="/usr/share/dict/linux.words"
-
 # Declare variables for the programs to be used.
 SHA256SUM="sha256sum"
 TIMEOUT="timeout"
+
+# Default dictionary to use.
+DICTIONARY="/usr/share/dict/linux.words"
+
+# Set the timeout duration.
+TIMEOUT_DURATION=240
 
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
