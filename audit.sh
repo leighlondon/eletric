@@ -10,6 +10,10 @@ TIMEOUT="timeout"
 
 # Default dictionary to use.
 DICTIONARY="/usr/share/dict/words"
+# Backup dictionary because the core teaching servers lack the real dictionary.
+if [ ! -f $DICTIONARY ]; then
+    DICTIONARY="~e20925/linux.words"
+fi
 
 # Set the timeout duration.
 TIMEOUT_DURATION=240
