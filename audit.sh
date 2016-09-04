@@ -20,6 +20,8 @@ TIMEOUT_DURATION=240
 
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
+    # Echo with no newline into the stdin of our sha program, and select
+    # the first field from the output.
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
