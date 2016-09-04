@@ -16,7 +16,7 @@ TIMEOUT_DURATION=240
 
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
-    echo -n "$1" | $SHA256SUM - | awk '{ print $1 }'
+    echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
 # Create a dictionary or associative array to store user details.
@@ -35,4 +35,5 @@ for i in "${!users[@]}"
 do
     # Echo and enable tabs (-e)
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
+    $TIMEOUT $TIMEOUT_DURATION bash -c "sha_hash ${users[$i]}"
 done
