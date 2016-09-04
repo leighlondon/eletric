@@ -30,6 +30,9 @@ do
     users+=(["${USER}"]="${PASSWORD}")
 done < /dev/stdin
 
+# Export the function to make it callable with a timeout.
+export -f sha_hash
+
 # Iterate the dictionary and display it.
 for i in "${!users[@]}"
 do
