@@ -25,6 +25,9 @@ sha_hash() {
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
+# Try calculating the hash.
+try=$(sha_hash "a")
+
 # Create a dictionary or associative array to store user details.
 declare -A users
 
