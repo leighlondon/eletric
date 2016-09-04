@@ -9,7 +9,7 @@ SHA256SUM="sha256sum"
 TIMEOUT="timeout"
 
 # Default dictionary to use.
-DICTIONARY="/usr/share/dict/linux.words"
+DICTIONARY="/usr/share/dict/words"
 
 # Set the timeout duration.
 TIMEOUT_DURATION=240
