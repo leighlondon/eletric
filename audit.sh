@@ -49,3 +49,13 @@ do
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
     $TIMEOUT $TIMEOUT_DURATION bash -c "sha_hash ${users[$i]}"
 done
+
+# Brute force filename.
+BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
+
+# gen_brute_force generates the alphabet to use for the brute force;
+# it's computationally very expensive to generate and we are going to
+# iterate it many times over.
+gen_brute_force() {
+    echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
+}
