@@ -50,7 +50,8 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
-    input_hash=$1
+    local input_hash=$1
+    local try=""
     while read -r PLAINTEXT; do
         # Sleep to not trip the runaway process countermeasures. (?)
         sleep 0.1
