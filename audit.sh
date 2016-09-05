@@ -21,6 +21,11 @@ fi
 # Create a dictionary or associative array to store user details.
 declare -A users
 
+# Log a message to stderr.
+log() {
+    echo -e "$1" >&2
+}
+
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
 read_input_file() {
