@@ -62,8 +62,9 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
-    for i in $(cat $BRUTE_FORCE_FILENAME); do
+    while read -r HASH
+    do
         sleep 0.1
-        echo "$i"
-    done
+        echo "$HASH"
+    done < $BRUTE_FORCE_FILENAME
 }
