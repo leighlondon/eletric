@@ -60,6 +60,11 @@ gen_brute_force() {
     echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
+# Only generate the brute force file if it doesn't already exist.
+if [ ! -f $BRUTE_FORCE_FILENAME ]; then
+    gen_brute_force
+fi
+
 # brute_force the passwords.
 brute_force() {
     while read -r HASH
