@@ -51,10 +51,18 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
+    input_hash=$1
     while read -r PLAINTEXT
     do
+        # Sleep to not trip the runaway process countermeasures. (?)
         sleep 0.1
-        echo "$PLAINTEXT"
+        # Calculate the attempted hash.
+        try=$(sha_hash "$PLAINTEXT")
+        # If it matches, echo and return.
+        if "$try" == "$input_hash"; then
+            echo "$PLAINTEXT"
+            return
+        fi
     done < $BRUTE_FORCE_FILENAME
 }
 
