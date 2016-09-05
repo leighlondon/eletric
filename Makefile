@@ -1,5 +1,7 @@
 .PHONY: test lint
 
+NUMBER=s3356850
+
 # Run the script over the test data.
 test:
 	@cat test/password | ./audit.sh
