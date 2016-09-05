@@ -18,6 +18,19 @@ if [ ! -f $DICTIONARY ]; then
     DICTIONARY="~e20925/linux.words"
 fi
 
+# Create a dictionary or associative array to store user details.
+declare -A users
+
+read_input_file() {
+    # Read from stdin and split based on the IFS (internal field separator)
+    # and take the fields as user and password in order.
+    while IFS=':' read -r USER PASSWORD
+    do
+        # Add the fields to the associative array.
+        users+=(["${USER}"]="${PASSWORD}")
+    done < /dev/stdin
+}
+
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
     # Echo with no newline into the stdin of our sha program, and select
@@ -45,17 +58,7 @@ brute_force() {
 
 # Export the function to make it callable with a timeout.
 export -f sha_hash
-
-# Create a dictionary or associative array to store user details.
-declare -A users
-
-# Read from stdin and split based on the IFS (internal field separator)
-# and take the fields as user and password in order.
-while IFS=':' read -r USER PASSWORD
-do
-    # Add the fields to the associative array.
-    users+=(["${USER}"]="${PASSWORD}")
-done < /dev/stdin
+read_input_file
 
 # Try calculating the hash.
 try=$(sha_hash "a")
