@@ -34,6 +34,15 @@ gen_brute_force() {
     echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
+# brute_force the passwords.
+brute_force() {
+    while read -r HASH
+    do
+        sleep 0.1
+        echo "$HASH"
+    done < $BRUTE_FORCE_FILENAME
+}
+
 # Export the function to make it callable with a timeout.
 export -f sha_hash
 
@@ -63,12 +72,3 @@ done
 if [ ! -f $BRUTE_FORCE_FILENAME ]; then
     gen_brute_force
 fi
-
-# brute_force the passwords.
-brute_force() {
-    while read -r HASH
-    do
-        sleep 0.1
-        echo "$HASH"
-    done < $BRUTE_FORCE_FILENAME
-}
