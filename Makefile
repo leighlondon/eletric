@@ -1,4 +1,4 @@
-.PHONY: test lint rel
+.PHONY: test lint rel clean
 
 NUMBER=s3356850
 
@@ -14,3 +14,6 @@ rel:
 	@chmod +x $(NUMBER)
 	@zip $(NUMBER).zip $(NUMBER)
 	@rm $(NUMBER)
+
+clean:
+	@rm -f $(NUMBER).zip
