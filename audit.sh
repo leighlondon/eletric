@@ -74,7 +74,8 @@ brute_force() {
 }
 
 # Export the function to make it callable with a timeout.
-export -f sha_hash
+export -f sha_hash brute_force log
+export BRUTE_FORCE_FILENAME
 read_input_file
 
 # Try calculating the hash.
