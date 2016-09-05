@@ -59,3 +59,11 @@ BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
 gen_brute_force() {
     echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
+
+# brute_force the passwords.
+brute_force() {
+    for i in $(cat $BRUTE_FORCE_FILENAME); do
+        sleep 0.1
+        echo "$i"
+    done
+}
