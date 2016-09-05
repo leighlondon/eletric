@@ -50,7 +50,8 @@ sha_hash() {
 #
 # It is approximately 80 MB in total on disk.
 gen_brute_force() {
-    # Use brace expansions to generate the range [a-z]{5} and save to the file.
+    log "Generating brute force dataset."
+    # Use brace expansions to generate the set [a-z]{5} into the file.
     echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
