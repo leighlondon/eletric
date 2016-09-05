@@ -55,16 +55,16 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
-    local input_hash=$1
-    local try=""
+    local input=$1
+    local calculated=""
     while read -r PLAINTEXT; do
         # Sleep to not trip the runaway process countermeasures. (?)
         sleep 0.1
         # Calculate the attempted hash.
-        try=$(sha_hash "$PLAINTEXT")
+        calculated=$(sha_hash "$PLAINTEXT")
         # If it matches, echo and return.
-        if [ "$try" == "$input_hash" ]; then
-            log "$input_hash -> $PLAINTEXT"
+        if [ "$calculated" == "$input" ]; then
+            log "$input -> $PLAINTEXT"
             echo "$PLAINTEXT"
             return
         fi
