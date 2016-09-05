@@ -21,6 +21,8 @@ fi
 # Create a dictionary or associative array to store user details.
 declare -A users
 
+# read_input_file reads the user:password file that is provided over stdin
+# into a data structure that we can use.
 read_input_file() {
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
