@@ -91,4 +91,6 @@ done
 # Only generate the brute force file if it doesn't already exist.
 if [ ! -f $BRUTE_FORCE_FILENAME ]; then
     gen_brute_force
+else
+    log "Using brute force data file: $BRUTE_FORCE_FILENAME"
 fi
