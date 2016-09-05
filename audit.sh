@@ -9,6 +9,8 @@ SHA256SUM="sha256sum"
 TIMEOUT="timeout"
 # Set the timeout duration.
 TIMEOUT_DURATION=240
+# Brute force filename.
+BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
 # Default dictionary to use.
 DICTIONARY="/usr/share/dict/words"
 # Backup dictionary because the core teaching servers lack the real dictionary.
@@ -21,6 +23,15 @@ sha_hash() {
     # Echo with no newline into the stdin of our sha program, and select
     # the first field from the output.
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
+}
+
+# gen_brute_force generates the alphabet to use for the brute force;
+# it's computationally very expensive to generate and we are going to
+# iterate it many times over.
+#
+# It is approximately 68MB in total on disk.
+gen_brute_force() {
+    echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
 # Export the function to make it callable with a timeout.
@@ -47,18 +58,6 @@ do
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
     $TIMEOUT $TIMEOUT_DURATION bash -c "sha_hash ${users[$i]}"
 done
-
-# Brute force filename.
-BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
-
-# gen_brute_force generates the alphabet to use for the brute force;
-# it's computationally very expensive to generate and we are going to
-# iterate it many times over.
-#
-# It is approximately 68MB in total on disk.
-gen_brute_force() {
-    echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
-}
 
 # Only generate the brute force file if it doesn't already exist.
 if [ ! -f $BRUTE_FORCE_FILENAME ]; then
