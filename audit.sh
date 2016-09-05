@@ -43,9 +43,9 @@ sha_hash() {
 # it's computationally very expensive to generate and we are going to
 # iterate it many times over.
 #
-# It is approximately 68MB in total on disk.
+# It is approximately 80 MB in total on disk.
 gen_brute_force() {
-    echo {a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
+    echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
 # brute_force the passwords.
