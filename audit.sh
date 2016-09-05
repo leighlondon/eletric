@@ -22,9 +22,7 @@ fi
 declare -A users
 
 # Log a message to stderr.
-log() {
-    echo -e "$1" >&2
-}
+log() { echo -e "$1" >&2; }
 
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
