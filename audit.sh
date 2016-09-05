@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: ts=4 et
+# vim: ts=4 et sw=4
 
 # Audit script.
 # This script requires Bash 4 due to the associative arrays.
