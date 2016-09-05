@@ -83,7 +83,7 @@ try=$(sha_hash "a")
 for i in "${!users[@]}"; do
     # Echo and enable tabs (-e)
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
-    $TIMEOUT $TIMEOUT_DURATION bash -c "sha_hash ${users[$i]}"
+    $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]}"
 done
 
 # Only generate the brute force file if it doesn't already exist.
