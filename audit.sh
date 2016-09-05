@@ -7,16 +7,14 @@
 # Declare variables for the programs to be used.
 SHA256SUM="sha256sum"
 TIMEOUT="timeout"
-
+# Set the timeout duration.
+TIMEOUT_DURATION=240
 # Default dictionary to use.
 DICTIONARY="/usr/share/dict/words"
 # Backup dictionary because the core teaching servers lack the real dictionary.
 if [ ! -f $DICTIONARY ]; then
     DICTIONARY="~e20925/linux.words"
 fi
-
-# Set the timeout duration.
-TIMEOUT_DURATION=240
 
 # sha_hash calculates the sha256 hash of the first argument.
 sha_hash() {
