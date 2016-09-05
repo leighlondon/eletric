@@ -1,4 +1,4 @@
-.PHONY: test lint
+.PHONY: test lint rel
 
 NUMBER=s3356850
 
@@ -9,7 +9,7 @@ test:
 lint:
 	@shellcheck -s bash audit.sh
 
-release:
+rel:
 	@cp audit.sh $(NUMBER)
 	@chmod +x $(NUMBER)
 	@zip $(NUMBER).zip $(NUMBER)
