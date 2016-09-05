@@ -28,9 +28,6 @@ sha_hash() {
 # Export the function to make it callable with a timeout.
 export -f sha_hash
 
-# Try calculating the hash.
-try=$(sha_hash "a")
-
 # Create a dictionary or associative array to store user details.
 declare -A users
 
@@ -41,6 +38,9 @@ do
     # Add the fields to the associative array.
     users+=(["${USER}"]="${PASSWORD}")
 done < /dev/stdin
+
+# Try calculating the hash.
+try=$(sha_hash "a")
 
 # Iterate the dictionary and display it.
 for i in "${!users[@]}"
