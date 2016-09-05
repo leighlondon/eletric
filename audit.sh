@@ -65,7 +65,8 @@ brute_force() {
         # Calculate the attempted hash.
         try=$(sha_hash "$PLAINTEXT")
         # If it matches, echo and return.
-        if "$try" == "$input_hash"; then
+        if [ "$try" == "$input_hash" ]; then
+            log "$input_hash -> $PLAINTEXT"
             echo "$PLAINTEXT"
             return
         fi
