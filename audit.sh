@@ -26,8 +26,7 @@ declare -A users
 read_input_file() {
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
-    while IFS=':' read -r USER PASSWORD
-    do
+    while IFS=':' read -r USER PASSWORD; do
         # Add the fields to the associative array.
         users+=(["${USER}"]="${PASSWORD}")
     done < /dev/stdin
@@ -52,8 +51,7 @@ gen_brute_force() {
 # brute_force the passwords.
 brute_force() {
     input_hash=$1
-    while read -r PLAINTEXT
-    do
+    while read -r PLAINTEXT; do
         # Sleep to not trip the runaway process countermeasures. (?)
         sleep 0.1
         # Calculate the attempted hash.
@@ -74,8 +72,7 @@ read_input_file
 try=$(sha_hash "a")
 
 # Iterate the dictionary and display it.
-for i in "${!users[@]}"
-do
+for i in "${!users[@]}"; do
     # Echo and enable tabs (-e)
     echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
     $TIMEOUT $TIMEOUT_DURATION bash -c "sha_hash ${users[$i]}"
