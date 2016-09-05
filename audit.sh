@@ -51,10 +51,10 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
-    while read -r HASH
+    while read -r PLAINTEXT
     do
         sleep 0.1
-        echo "$HASH"
+        echo "$PLAINTEXT"
     done < $BRUTE_FORCE_FILENAME
 }
 
