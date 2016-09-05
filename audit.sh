@@ -25,6 +25,9 @@ sha_hash() {
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
+# Export the function to make it callable with a timeout.
+export -f sha_hash
+
 # Try calculating the hash.
 try=$(sha_hash "a")
 
@@ -38,9 +41,6 @@ do
     # Add the fields to the associative array.
     users+=(["${USER}"]="${PASSWORD}")
 done < /dev/stdin
-
-# Export the function to make it callable with a timeout.
-export -f sha_hash
 
 # Iterate the dictionary and display it.
 for i in "${!users[@]}"
