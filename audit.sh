@@ -74,21 +74,23 @@ brute_force() {
 # Export the function to make it callable with a timeout.
 export -f sha_hash brute_force log
 export BRUTE_FORCE_FILENAME
-read_input_file
 
-# Try calculating the hash.
-try=$(sha_hash "a")
+main() {
+    # The main loop for our little script.
+    log "Reading input"
+    read_input_file
 
-# Iterate the dictionary and display it.
-for i in "${!users[@]}"; do
-    # Echo and enable tabs (-e)
-    echo -e "user:" "$i" "\tpassword:" "${users[$i]}"
-    $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]}"
-done
+    # Only generate the brute force file if it doesn't already exist.
+    if [ ! -f $BRUTE_FORCE_FILENAME ]; then
+        gen_brute_force
+    else
+        log "Using brute force data file: $BRUTE_FORCE_FILENAME"
+    fi
 
-# Only generate the brute force file if it doesn't already exist.
-if [ ! -f $BRUTE_FORCE_FILENAME ]; then
-    gen_brute_force
-else
-    log "Using brute force data file: $BRUTE_FORCE_FILENAME"
-fi
+    # Iterate the dictionary and display it.
+    for i in "${!users[@]}"; do
+        # Attempt to brute force the password using the brute force
+        # key space [a-z]{5}, with a timeout duration.
+        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]}"
+    done
+}
