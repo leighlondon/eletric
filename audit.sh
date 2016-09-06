@@ -104,3 +104,6 @@ main() {
         $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]} $BRUTE_FORCE_FILENAME"
     done
 }
+
+# Execute the script.
+main
