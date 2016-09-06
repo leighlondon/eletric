@@ -54,6 +54,27 @@ sha_hash() {
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
+trivial_crack() {
+    # Grab the input value into something with a better name.
+    local input=$1
+    # Check for trivial passwords. The specification is especially poor for
+    # this, so we're just going to check the most common 25.
+    declare -a trivial_passwords=("password" "123456" "password" "12345678")
+    trivial_passwords+=("qwerty" "12345" "123456789" "football" "1234" "1234567")
+    trivial_passwords+=("baseball" "welcome" "1234567890" "abc123" "111111")
+    trivial_passwords+=("1qaz2wsx" "dragon" "master" "monkey" "letmein" "login")
+    trivial_passwords+=("princess" "qwertyuiop" "solo" "passw0rd" "starwars")
+    # This is just an array, so access using the index.
+    for i in "${!trivial_passwords[@]}"; do
+        local trivial="${trivial_passwords[$i]}"
+        calculated=$(sha_hash "$trivial")
+        if [ "$calculated" == "$input" ]; then
+            echo "$trivial"
+            return
+        fi
+    done
+}
+
 # brute_force attempts to use a 'trivial' brute force attack against the
 # provided password in the [a-z]{0,5} space.
 # Pre-computation was not allowed so test data is generated "live".
@@ -141,6 +162,17 @@ main() {
 
     # Results storage for cracked passwords. { hash => cleartext }
     declare -A passwords
+
+    # Check trivial passwords first.
+    for user in "${!users[@]}"; do
+        local password="${users[$user]}"
+        log "[INFO] Attempting trivials: $password"
+        cracked=$(trivial_crack "$password")
+        # If the result is not empty add it to the results.
+        if [ -n "$cracked" ]; then
+            passwords+=(["$password"]="$cracked")
+        fi
+    done
 
     # Attempt to use the dictionary to crack the password.
     for user in "${!users[@]}"; do
