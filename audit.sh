@@ -58,6 +58,12 @@ gen_brute_force() {
 
 # brute_force the passwords.
 brute_force() {
+    # Make sure that the correct number of arguments are present.
+    if [ $# -ne "$BRUTE_FORCE_ARG_COUNT" ]; then
+        log "Invalid number of arguments to brute_force."
+        return
+    fi
+    # Grab the variables.
     local input=$1
     local filename=$2
     local calculated=""
