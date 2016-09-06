@@ -37,6 +37,10 @@ read_users_from_stdin() {
         if [ -z "$USER" -o -z "$PASSWORD" ]; then
             continue
         fi
+        # Remove duplicates (because some people are crazy).
+        if [ "${users[$USER]+is_set}" ]; then
+            continue
+        fi
         # Add the fields to the associative array.
         users+=(["${USER}"]="${PASSWORD}")
     done < /dev/stdin
@@ -74,6 +78,9 @@ file_crack() {
     local input=$1
     local filename=$2
     local calculated=""
+    # This is a super efficient "hashing" of the input file with no wasted
+    # memory allocations or CPU cycles spent on processing and then
+    # re-processing the same data. It's streamed directly.
     while read -r PLAINTEXT; do
         # Calculate the attempted hash.
         calculated=$(sha_hash "$PLAINTEXT")
@@ -115,7 +122,6 @@ main() {
         if [ "${passwords[$password]+is_set}" ]; then
             continue
         fi
-        # TODO: Store the password attempt from brute_force
         cracked=$($TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password")
         # If the result is not empty add it to the results.
         if [ -n "$cracked" ]; then
