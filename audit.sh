@@ -59,6 +59,7 @@ trivial_crack() {
     local input=$1
     # Check for trivial passwords. The specification is especially poor for
     # this, so we're just going to check the most common 25.
+    # Source: http://bit.ly/1UGEJcq
     declare -a trivial_passwords=("password" "123456" "password" "12345678")
     trivial_passwords+=("qwerty" "12345" "123456789" "football" "1234" "1234567")
     trivial_passwords+=("baseball" "welcome" "1234567890" "abc123" "111111")
