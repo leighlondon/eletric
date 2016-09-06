@@ -96,8 +96,6 @@ main() {
 
     # Results storage for cracked passwords. { hash => cleartext }
     declare -A passwords
-    # Plaintext mapping of users to passwords. { user => cleartext }
-    declare -A cleartext
 
     # Attempt to use the dictionary to crack the password.
     for user in "${!users[@]}"; do
@@ -124,10 +122,10 @@ main() {
     # Consolidate found passwords and map them to users.
     for user in "${!users[@]}"; do
         local pass="${users[$user]}"
-        # If the result is not empty add it to the results.
+        # If the hash has been cracked, map it to the user and echo the result.
         if [ "${passwords[$pass]+is_set}" ]; then
-            # Append the [user]=password keypair to the cleartext.
-            cleartext+=(["$i"]="${passwords[$pass]}")
+            # Display the output for cracked passwords.
+            echo -e "[FOUND] User: $user\tPassword: ${passwords[$pass]}"
         fi
     done
 }
