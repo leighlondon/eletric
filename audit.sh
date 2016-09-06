@@ -98,7 +98,7 @@ main() {
     for i in "${!users[@]}"; do
         local password="${users[$i]}"
         log "Attempting: $password"
-        $TIMEOUT $TIMEOUT_DURATION bash -c "file_crack $password $DICTIONARY"
+        file_crack $password $DICTIONARY
     done
 
     # Only generate the brute force file if it doesn't already exist.
