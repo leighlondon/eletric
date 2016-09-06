@@ -60,8 +60,9 @@ gen_brute_force() {
     echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
-# brute_force the passwords.
-brute_force() {
+# file_crack uses an input file as a source to test the passwords.
+# The input file is hashed iteratively and compared with the input hash.
+file_crack() {
     # Make sure that the correct number of arguments are present.
     if [ $# -ne "$BRUTE_FORCE_ARG_COUNT" ]; then
         log "Invalid number of arguments to brute_force."
@@ -86,12 +87,21 @@ brute_force() {
 }
 
 # Export the function to make it callable with a timeout.
-export -f sha_hash brute_force log
+export -f sha_hash file_crack log
 export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT
 
 main() {
     # The main loop for our little script.
     read_users_from_stdin
+
+    # Attempt to use the dictionary to crack the password.
+    for i in "${!users[@]}"; do
+        # Attempt to brute force the password using the brute force
+        # key space [a-z]{5}, with a timeout duration.
+        local password="${users[$i]}"
+        log "Attempting: $password"
+        $TIMEOUT $TIMEOUT_DURATION bash -c "file_crack $password $DICTIONARY"
+    done
 
     # Only generate the brute force file if it doesn't already exist.
     # The file is the plaintext alphabet and NOT a rainbow table.
@@ -100,15 +110,6 @@ main() {
     else
         log "Using brute force data file: $BRUTE_FORCE_FILENAME"
     fi
-
-    # Iterate the dictionary and display it.
-    for i in "${!users[@]}"; do
-        # Attempt to brute force the password using the brute force
-        # key space [a-z]{5}, with a timeout duration.
-        local password="${users[$i]}"
-        log "Attempting: $password"
-        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password $BRUTE_FORCE_FILENAME"
-    done
 }
 
 # Execute the script.
