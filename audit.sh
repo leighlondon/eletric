@@ -7,8 +7,8 @@
 # Declare variables for the programs to be used.
 SHA256SUM="sha256sum"
 TIMEOUT="timeout"
-# Set the timeout duration.
-TIMEOUT_DURATION=2
+# Set the timeout duration to 4 minutes.
+TIMEOUT_DURATION=240
 # Expected number of arguments for the file_crack function.
 FILE_CRACK_ARG_COUNT=2
 # Default dictionary to use.
