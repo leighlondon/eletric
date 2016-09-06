@@ -94,6 +94,8 @@ main() {
 
     # Results storage for cracked passwords. { hash => cleartext }
     declare -A passwords
+    # Plaintext mapping of users to passwords. { user => cleartext }
+    declare -A cleartext
 
     # Attempt to use the dictionary to crack the password.
     for i in "${!users[@]}"; do
@@ -116,13 +118,15 @@ main() {
         $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password"
     done
 
-    # Only generate the brute force file if it doesn't already exist.
-    # The file is the plaintext alphabet and NOT a rainbow table.
-    if [ ! -f $BRUTE_FORCE_FILENAME ]; then
-        gen_brute_force
-    else
-        log "Using brute force data file: $BRUTE_FORCE_FILENAME"
-    fi
+    # Consolidate found passwords and map them to users.
+    for i in "${!users[@]}"; do
+        local pass="${users[$i]}"
+        # If the result is not empty add it to the results.
+        if [ "${passwords[$pass]+is_set}" ]; then
+            # Append the [user]=password keypair to the cleartext.
+            cleartext+=(["$i"]="${passwords[$pass]}")
+        fi
+    done
 }
 
 # Execute the script.
