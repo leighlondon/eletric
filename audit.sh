@@ -73,8 +73,6 @@ file_crack() {
     local filename=$2
     local calculated=""
     while read -r PLAINTEXT; do
-        # Sleep to not trip the runaway process countermeasures. (?)
-        sleep 0.1
         # Calculate the attempted hash.
         calculated=$(sha_hash "$PLAINTEXT")
         # If it matches, echo and return.
