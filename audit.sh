@@ -10,7 +10,7 @@ TIMEOUT="timeout"
 # Set the timeout duration.
 TIMEOUT_DURATION=2
 # Expected number of arguments for the brute_force function.
-BRUTE_FORCE_ARG_COUNT=2
+FILE_CRACK_ARG_COUNT=2
 # Brute force filename.
 BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
 # Default dictionary to use.
@@ -64,8 +64,8 @@ gen_brute_force() {
 # The input file is hashed iteratively and compared with the input hash.
 file_crack() {
     # Make sure that the correct number of arguments are present.
-    if [ $# -ne "$BRUTE_FORCE_ARG_COUNT" ]; then
-        log "Invalid number of arguments to brute_force."
+    if [ $# -ne "$FILE_CRACK_ARG_COUNT" ]; then
+        log "Invalid number of arguments to file_crack."
         return
     fi
     # Grab the variables.
@@ -88,7 +88,7 @@ file_crack() {
 
 # Export the function to make it callable with a timeout.
 export -f sha_hash file_crack log
-export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT SHA256SUM
+export BRUTE_FORCE_FILENAME FILE_CRACK_ARG_COUNT SHA256SUM
 
 main() {
     # The main loop for our little script.
