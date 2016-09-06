@@ -31,13 +31,14 @@ logn() { echo -en "$1" >&2; }
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
 read_users_from_stdin() {
-    log "Reading input... "
+    logn "Reading input... "
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
     while IFS=':' read -r USER PASSWORD; do
         # Add the fields to the associative array.
         users+=(["${USER}"]="${PASSWORD}")
     done < /dev/stdin
+    log "done."
 }
 
 # sha_hash calculates the sha256 hash of the first argument.
