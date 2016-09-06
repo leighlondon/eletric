@@ -9,6 +9,8 @@ SHA256SUM="sha256sum"
 TIMEOUT="timeout"
 # Set the timeout duration.
 TIMEOUT_DURATION=2
+# Expected number of arguments for the brute_force function.
+BRUTE_FORCE_ARG_COUNT=1
 # Expected number of arguments for the file_crack function.
 FILE_CRACK_ARG_COUNT=2
 # Default dictionary to use.
@@ -54,16 +56,59 @@ sha_hash() {
     echo -n "$1" | $SHA256SUM | awk '{ print $1 }'
 }
 
-# gen_brute_force generates the alphabet to use for the brute force;
-# it's computationally very expensive to generate and we are going to
-# iterate it many times over.
-#
-# It is approximately 80 MB in total on disk.
-gen_brute_force() {
-    log "Generating brute force dataset."
-    # Use brace expansions to generate the set [a-z]{5} into the file.
-    # TODO: Brute force range is [a-z]{0,5}
-    echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z}
+# brute_force attempts to use a 'trivial' brute force attack against the
+# provided password in the [a-z]{0,5} space.
+# Pre-computation was not allowed so test data is generated "live".
+brute_force() {
+    # Make sure that the correct number of arguments are present.
+    if [ $# -ne "$BRUTE_FORCE_ARG_COUNT" ]; then
+        log "Invalid number of arguments to file_crack."
+        return
+    fi
+    # Grab the input value into something with a better name.
+    local input=$1
+    # Use iterative brace expansions to generate the set, since the
+    # computation of the expansion is handled before the first element
+    # is accessed.
+    #
+    # Iteratively expanding the sets allows us to amortize the cost
+    # for generating the larger sets, which is especially useful if the
+    # password is found in a smaller set.
+    for plaintext in {a..z}; do
+        calculated=$(sha_hash "$plaintext")
+        if [ "$calculated" == "$input" ]; then
+            echo "$plaintext"
+            return
+        fi
+    done
+    for plaintext in {a..z}{a..z}; do
+        calculated=$(sha_hash "$plaintext")
+        if [ "$calculated" == "$input" ]; then
+            echo "$plaintext"
+            return
+        fi
+    done
+    for plaintext in {a..z}{a..z}{a..z}; do
+        calculated=$(sha_hash "$plaintext")
+        if [ "$calculated" == "$input" ]; then
+            echo "$plaintext"
+            return
+        fi
+    done
+    for plaintext in {a..z}{a..z}{a..z}{a..z}; do
+        calculated=$(sha_hash "$plaintext")
+        if [ "$calculated" == "$input" ]; then
+            echo "$plaintext"
+            return
+        fi
+    done
+    for plaintext in {a..z}{a..z}{a..z}{a..z}{a..z}; do
+        calculated=$(sha_hash "$plaintext")
+        if [ "$calculated" == "$input" ]; then
+            echo "$plaintext"
+            return
+        fi
+    done
 }
 
 # file_crack uses an input file as a source to test the passwords.
