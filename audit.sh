@@ -79,7 +79,6 @@ file_crack() {
         calculated=$(sha_hash "$PLAINTEXT")
         # If it matches, echo and return.
         if [ "$calculated" == "$input" ]; then
-            log "$input -> $PLAINTEXT"
             echo "$PLAINTEXT"
             return
         fi
@@ -90,8 +89,9 @@ file_crack() {
 export -f sha_hash file_crack log logn
 export FILE_CRACK_ARG_COUNT SHA256SUM
 
+# The main loop for our little script.
 main() {
-    # The main loop for our little script.
+    # Read the data in first.
     read_users_from_stdin
 
     # Results storage for cracked passwords. { hash => cleartext }
@@ -109,8 +109,6 @@ main() {
             passwords+=(["$password"]="$cracked")
         fi
     done
-
-    # Check if password not found in results dict.
 
     # Attempt to brute force the password.
     for i in "${!users[@]}"; do
