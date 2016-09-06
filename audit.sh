@@ -59,6 +59,7 @@ gen_brute_force() {
 # brute_force the passwords.
 brute_force() {
     local input=$1
+    local filename=$2
     local calculated=""
     while read -r PLAINTEXT; do
         # Sleep to not trip the runaway process countermeasures. (?)
@@ -71,12 +72,12 @@ brute_force() {
             echo "$PLAINTEXT"
             return
         fi
-    done < $BRUTE_FORCE_FILENAME
+    done < "$filename"
 }
 
 # Export the function to make it callable with a timeout.
 export -f sha_hash brute_force log
-export BRUTE_FORCE_FILENAME
+export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT
 
 main() {
     # The main loop for our little script.
@@ -94,6 +95,6 @@ main() {
     for i in "${!users[@]}"; do
         # Attempt to brute force the password using the brute force
         # key space [a-z]{5}, with a timeout duration.
-        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]}"
+        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]} $BRUTE_FORCE_FILENAME"
     done
 }
