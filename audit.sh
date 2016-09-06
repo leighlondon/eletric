@@ -116,7 +116,11 @@ main() {
             continue
         fi
         # TODO: Store the password attempt from brute_force
-        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password"
+        cracked=$($TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password")
+        # If the result is not empty add it to the results.
+        if [ -n "$cracked" ]; then
+            passwords+=(["$password"]="$cracked")
+        fi
     done
 
     # Consolidate found passwords and map them to users.
