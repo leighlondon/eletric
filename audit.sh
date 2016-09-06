@@ -9,6 +9,8 @@ SHA256SUM="sha256sum"
 TIMEOUT="timeout"
 # Set the timeout duration.
 TIMEOUT_DURATION=2
+# Expected number of arguments for the brute_force function.
+BRUTE_FORCE_ARG_COUNT=2
 # Brute force filename.
 BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
 # Default dictionary to use.
