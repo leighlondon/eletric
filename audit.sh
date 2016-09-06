@@ -92,12 +92,18 @@ main() {
     # The main loop for our little script.
     read_users_from_stdin
 
+    # Results storage for cracked passwords. { hash => cleartext }
+    declare -A passwords
+
     # Attempt to use the dictionary to crack the password.
     for i in "${!users[@]}"; do
         local password="${users[$i]}"
         log "Attempting: $password"
-        # TODO: Store the password attempt from the dictionary.
-        file_crack "$password" "$DICTIONARY"
+        cracked=$(file_crack "$password" "$DICTIONARY")
+        # If the result is not empty add it to the results.
+        if [ -n "$cracked" ]; then
+            passwords+=(["$password"]="$cracked")
+        fi
     done
 
     # Check if password not found in results dict.
