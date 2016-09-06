@@ -104,6 +104,14 @@ main() {
 
     # Check if password not found in results dict.
 
+    # Attempt to brute force the password.
+    for i in "${!users[@]}"; do
+        # TODO: Make sure that it's only the ones that haven't been found yet.
+        local password="${users[$i]}"
+        # TODO: Store the password attempt from brute_force
+        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password"
+    done
+
     # Only generate the brute force file if it doesn't already exist.
     # The file is the plaintext alphabet and NOT a rainbow table.
     if [ ! -f $BRUTE_FORCE_FILENAME ]; then
