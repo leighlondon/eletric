@@ -33,6 +33,10 @@ read_users_from_stdin() {
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
     while IFS=':' read -r USER PASSWORD; do
+        # Sanity check, skip if null.
+        if [ -z "$USER" -o -z "$PASSWORD" ]; then
+            continue
+        fi
         # Add the fields to the associative array.
         users+=(["${USER}"]="${PASSWORD}")
     done < /dev/stdin
