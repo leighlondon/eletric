@@ -88,7 +88,7 @@ file_crack() {
 
 # Export the function to make it callable with a timeout.
 export -f sha_hash file_crack log
-export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT
+export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT SHA256SUM
 
 main() {
     # The main loop for our little script.
