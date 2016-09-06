@@ -94,6 +94,7 @@ main() {
     read_users_from_stdin
 
     # Only generate the brute force file if it doesn't already exist.
+    # The file is the plaintext alphabet and NOT a rainbow table.
     if [ ! -f $BRUTE_FORCE_FILENAME ]; then
         gen_brute_force
     else
