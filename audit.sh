@@ -104,7 +104,9 @@ main() {
     for i in "${!users[@]}"; do
         # Attempt to brute force the password using the brute force
         # key space [a-z]{5}, with a timeout duration.
-        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force ${users[$i]} $BRUTE_FORCE_FILENAME"
+        local password="${users[$i]}"
+        log "Attempting: $password"
+        $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password $BRUTE_FORCE_FILENAME"
     done
 }
 
