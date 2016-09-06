@@ -9,8 +9,6 @@ SHA256SUM="sha256sum"
 TIMEOUT="timeout"
 # Set the timeout duration.
 TIMEOUT_DURATION=2
-# Expected number of arguments for the brute_force function.
-BRUTE_FORCE_ARG_COUNT=1
 # Expected number of arguments for the file_crack function.
 FILE_CRACK_ARG_COUNT=2
 # Default dictionary to use.
