@@ -100,8 +100,8 @@ main() {
     declare -A cleartext
 
     # Attempt to use the dictionary to crack the password.
-    for i in "${!users[@]}"; do
-        local password="${users[$i]}"
+    for user in "${!users[@]}"; do
+        local password="${users[$user]}"
         log "Attempting: $password"
         cracked=$(file_crack "$password" "$DICTIONARY")
         # If the result is not empty add it to the results.
@@ -111,16 +111,19 @@ main() {
     done
 
     # Attempt to brute force the password.
-    for i in "${!users[@]}"; do
-        # TODO: Make sure that it's only the ones that haven't been found yet.
-        local password="${users[$i]}"
+    for user in "${!users[@]}"; do
+        local password="${users[$user]}"
+        # Check if the password was already cracked.
+        if [ "${passwords[$password]+is_set}" ]; then
+            continue
+        fi
         # TODO: Store the password attempt from brute_force
         $TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password"
     done
 
     # Consolidate found passwords and map them to users.
-    for i in "${!users[@]}"; do
-        local pass="${users[$i]}"
+    for user in "${!users[@]}"; do
+        local pass="${users[$user]}"
         # If the result is not empty add it to the results.
         if [ "${passwords[$pass]+is_set}" ]; then
             # Append the [user]=password keypair to the cleartext.
