@@ -98,8 +98,11 @@ main() {
     for i in "${!users[@]}"; do
         local password="${users[$i]}"
         log "Attempting: $password"
-        file_crack $password $DICTIONARY
+        # TODO: Store the password attempt from the dictionary.
+        file_crack "$password" "$DICTIONARY"
     done
+
+    # Check if password not found in results dict.
 
     # Only generate the brute force file if it doesn't already exist.
     # The file is the plaintext alphabet and NOT a rainbow table.
