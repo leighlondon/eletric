@@ -34,7 +34,7 @@ read_users_from_stdin() {
     # and take the fields as user and password in order.
     while IFS=':' read -r USER PASSWORD; do
         # Sanity check, skip if null.
-        if [ -z "$USER" -o -z "$PASSWORD" ]; then
+        if [ -z "$USER" ] || [ -z "$PASSWORD" ]; then
             continue
         fi
         # Remove duplicates (because some people are crazy).
