@@ -31,7 +31,7 @@ logn() { echo -en "$1" >&2; }
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
 read_users_from_stdin() {
-    logn "Reading input... "
+    logn "[INFO] Reading input... "
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
     while IFS=':' read -r USER PASSWORD; do
