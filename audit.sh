@@ -25,6 +25,8 @@ declare -A users
 
 # Log a message to stderr.
 log() { echo -e "$1" >&2; }
+# Log a message with no newline.
+logn() { echo -en "$1" >&2; }
 
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
