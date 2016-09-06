@@ -111,7 +111,7 @@ brute_force() {
 file_crack() {
     # Make sure that the correct number of arguments are present.
     if [ $# -ne "$FILE_CRACK_ARG_COUNT" ]; then
-        log "Invalid number of arguments to file_crack."
+        log "[ERROR] Invalid number of arguments to file_crack."
         return
     fi
     # Grab the variables.
