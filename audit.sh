@@ -28,7 +28,8 @@ log() { echo -e "$1" >&2; }
 
 # read_input_file reads the user:password file that is provided over stdin
 # into a data structure that we can use.
-read_input_file() {
+read_users_from_stdin() {
+    log "Reading input... "
     # Read from stdin and split based on the IFS (internal field separator)
     # and take the fields as user and password in order.
     while IFS=':' read -r USER PASSWORD; do
@@ -87,8 +88,7 @@ export BRUTE_FORCE_FILENAME BRUTE_FORCE_ARG_COUNT
 
 main() {
     # The main loop for our little script.
-    log "Reading input"
-    read_input_file
+    read_users_from_stdin
 
     # Only generate the brute force file if it doesn't already exist.
     if [ ! -f $BRUTE_FORCE_FILENAME ]; then
