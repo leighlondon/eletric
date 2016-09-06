@@ -50,6 +50,7 @@ sha_hash() {
 gen_brute_force() {
     log "Generating brute force dataset."
     # Use brace expansions to generate the set [a-z]{5} into the file.
+    # TODO: Brute force range is [a-z]{0,5}
     echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
 }
 
