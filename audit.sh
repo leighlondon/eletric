@@ -11,8 +11,6 @@ TIMEOUT="timeout"
 TIMEOUT_DURATION=2
 # Expected number of arguments for the file_crack function.
 FILE_CRACK_ARG_COUNT=2
-# Brute force filename.
-BRUTE_FORCE_FILENAME="eletric-brute-force.txt"
 # Default dictionary to use.
 DICTIONARY="/usr/share/dict/words"
 # Backup dictionary because the core teaching servers lack the real dictionary.
@@ -57,7 +55,7 @@ gen_brute_force() {
     log "Generating brute force dataset."
     # Use brace expansions to generate the set [a-z]{5} into the file.
     # TODO: Brute force range is [a-z]{0,5}
-    echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z} > $BRUTE_FORCE_FILENAME
+    echo -e "\n"{a..z}{a..z}{a..z}{a..z}{a..z}
 }
 
 # file_crack uses an input file as a source to test the passwords.
@@ -86,7 +84,7 @@ file_crack() {
 
 # Export the function to make it callable with a timeout.
 export -f sha_hash file_crack log logn
-export BRUTE_FORCE_FILENAME FILE_CRACK_ARG_COUNT SHA256SUM
+export FILE_CRACK_ARG_COUNT SHA256SUM
 
 main() {
     # The main loop for our little script.
