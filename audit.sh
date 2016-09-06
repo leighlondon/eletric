@@ -60,11 +60,6 @@ sha_hash() {
 # provided password in the [a-z]{0,5} space.
 # Pre-computation was not allowed so test data is generated "live".
 brute_force() {
-    # Make sure that the correct number of arguments are present.
-    if [ $# -ne "$BRUTE_FORCE_ARG_COUNT" ]; then
-        log "Invalid number of arguments to file_crack."
-        return
-    fi
     # Grab the input value into something with a better name.
     local input=$1
     # Use iterative brace expansions to generate the set, since the
