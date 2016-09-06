@@ -167,6 +167,10 @@ main() {
     # Check trivial passwords first.
     for user in "${!users[@]}"; do
         local password="${users[$user]}"
+        # Check if the password was already cracked.
+        if [ "${passwords[$password]+is_set}" ]; then
+            continue
+        fi
         log "[INFO] Attempting trivials: $password"
         cracked=$(trivial_crack "$password")
         # If the result is not empty add it to the results.
@@ -178,6 +182,10 @@ main() {
     # Attempt to use the dictionary to crack the password.
     for user in "${!users[@]}"; do
         local password="${users[$user]}"
+        # Check if the password was already cracked.
+        if [ "${passwords[$password]+is_set}" ]; then
+            continue
+        fi
         log "[INFO] Attempting dictionary: $password"
         cracked=$(file_crack "$password" "$DICTIONARY")
         # If the result is not empty add it to the results.
