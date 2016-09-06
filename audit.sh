@@ -161,6 +161,9 @@ main() {
             continue
         fi
         log "[INFO] Attempting brute force: $password"
+        # Create a subshell with the given timeout duration.
+        # Bash is a keyword in this shell and we're presumed to be running
+        # the environment (i.e. not-hardcoded) version of bash.
         cracked=$($TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password")
         # If the result is not empty add it to the results.
         if [ -n "$cracked" ]; then
