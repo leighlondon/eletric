@@ -152,7 +152,7 @@ main() {
     # Attempt to use the dictionary to crack the password.
     for user in "${!users[@]}"; do
         local password="${users[$user]}"
-        log "Attempting: $password"
+        log "[INFO] Attempting dictionary: $password"
         cracked=$(file_crack "$password" "$DICTIONARY")
         # If the result is not empty add it to the results.
         if [ -n "$cracked" ]; then
@@ -167,6 +167,7 @@ main() {
         if [ "${passwords[$password]+is_set}" ]; then
             continue
         fi
+        log "[INFO] Attempting brute force: $password"
         cracked=$($TIMEOUT $TIMEOUT_DURATION bash -c "brute_force $password")
         # If the result is not empty add it to the results.
         if [ -n "$cracked" ]; then
